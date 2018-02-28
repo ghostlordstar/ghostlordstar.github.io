@@ -1,3 +1,8 @@
 http://ghostlord.site/2018/02/14/2018-02-14_blog_iOS_NSValue/
 http://ghostlord.site/2018/02/11/2018-02-11_blog_comment_counting_start/
 http://ghostlord.site/2018/01/12/2018-01-12_mac_run_sh/
+http://ghostlord.site/2017/11/22/2017-11-22_git_command/
+http://ghostlord.site/2016/10/03/2016-10-03_mac_terminal_beautify/
+http://ghostlord.site/2016/08/05/2016-08-05_cocoapods_install_1.3.1_20171124_update/
+http://ghostlord.site/2016/06/30/2016-06-30_svn_learn/
+http://ghostlord.site/2016/06/13/2016-06-13_hello-world/
