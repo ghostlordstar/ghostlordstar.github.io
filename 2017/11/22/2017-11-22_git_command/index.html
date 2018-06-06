@@ -103,18 +103,18 @@
   <meta name="keywords" content="Mac,终端,命令,git," />
 
 
-<meta name="description" content="更新信息：  20180224：11.增加创建远程分支命令(2.7) 20180116： 121.添加Mac 终端的基础操作命令2.修改排版 20171211： 11.添加撤销文件在工作区的修改命令（命令 2.15） 20171205： 11.添加版本操作命令分区 20171123： 121.添加几个新的分支操作命令2.修改错误的一个分支操作命令 20171122： 11.第一次发表">
+<meta name="description" content="更新信息：  20180428：11.添加tag操作命令 20180224：11.增加创建远程分支命令(2.7) 20180116： 121.添加Mac 终端的基础操作命令2.修改排版 20171211： 11.添加撤销文件在工作区的修改命令（命令 2.15） 20171205： 11.添加版本操作命令分区 20171123： 121.添加几个新的分支操作命令2.修改错误的一个分支操作命令 201">
 <meta name="keywords" content="Mac,终端,命令,git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git常用命令(20180224更新)">
+<meta property="og:title" content="git常用命令(20180428更新)">
 <meta property="og:url" content="http://ghostlord.site/2017/11/22/2017-11-22_git_command/index.html">
 <meta property="og:site_name" content="ghostlord&#39;s blog.">
-<meta property="og:description" content="更新信息：  20180224：11.增加创建远程分支命令(2.7) 20180116： 121.添加Mac 终端的基础操作命令2.修改排版 20171211： 11.添加撤销文件在工作区的修改命令（命令 2.15） 20171205： 11.添加版本操作命令分区 20171123： 121.添加几个新的分支操作命令2.修改错误的一个分支操作命令 20171122： 11.第一次发表">
+<meta property="og:description" content="更新信息：  20180428：11.添加tag操作命令 20180224：11.增加创建远程分支命令(2.7) 20180116： 121.添加Mac 终端的基础操作命令2.修改排版 20171211： 11.添加撤销文件在工作区的修改命令（命令 2.15） 20171205： 11.添加版本操作命令分区 20171123： 121.添加几个新的分支操作命令2.修改错误的一个分支操作命令 201">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-24T02:34:15.000Z">
+<meta property="og:updated_time" content="2018-06-06T10:54:56.839Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git常用命令(20180224更新)">
-<meta name="twitter:description" content="更新信息：  20180224：11.增加创建远程分支命令(2.7) 20180116： 121.添加Mac 终端的基础操作命令2.修改排版 20171211： 11.添加撤销文件在工作区的修改命令（命令 2.15） 20171205： 11.添加版本操作命令分区 20171123： 121.添加几个新的分支操作命令2.修改错误的一个分支操作命令 20171122： 11.第一次发表">
+<meta name="twitter:title" content="git常用命令(20180428更新)">
+<meta name="twitter:description" content="更新信息：  20180428：11.添加tag操作命令 20180224：11.增加创建远程分支命令(2.7) 20180116： 121.添加Mac 终端的基础操作命令2.修改排版 20171211： 11.添加撤销文件在工作区的修改命令（命令 2.15） 20171205： 11.添加版本操作命令分区 20171123： 121.添加几个新的分支操作命令2.修改错误的一个分支操作命令 201">
 
 
 
@@ -130,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>git常用命令(20180224更新) | ghostlord's blog.</title>
+  <title>git常用命令(20180428更新) | ghostlord's blog.</title>
   
 
 
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git常用命令(20180224更新)</h1>
+          <h1 class="post-title" itemprop="name headline">git常用命令(20180428更新)</h1>
         
 
         <div class="post-meta">
@@ -354,6 +354,7 @@
       
         <p>更新信息：</p>
 <hr>
+<p>20180428：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.添加tag操作命令</span><br></pre></td></tr></table></figure></p>
 <p>20180224：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.增加创建远程分支命令(2.7)</span><br></pre></td></tr></table></figure></p>
 <p>20180116：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.添加Mac 终端的基础操作命令</span><br><span class="line">2.修改排版</span><br></pre></td></tr></table></figure>
@@ -439,6 +440,35 @@ $ git log
 
 #3.2 回滚到指定版本 (示例为：回滚到e377f60e28c8b84158版本,)
 $ git reset --hard e377f60e28c8b84158
+</code></pre><h2 id="4-tag操作命令"><a href="#4-tag操作命令" class="headerlink" title="4.tag操作命令"></a>4.tag操作命令</h2><pre><code>#4.1 查看当前所有的tag(以字母顺序排序)
+$ git tag
+
+#4.2 查看某个特定开头的tag(示例为：查看v1.1版本下的所有tag)
+$ git tag -l &quot;v1.1.*&quot;
+
+#4.3 新建简单标签(示例为：建立一个名为‘v0.0.1’的tag)
+$ git tag v0.0.1
+
+#4.4 新建带标注的标签(示例为：建立一个名为‘v0.0.1’ ,备注信息为：‘第一个版本’的tag)
+$ git tag -a v0.0.1 -m &quot;第一个版本&quot;
+
+#4.5 查看某个tag的版本信息(示例为：查看‘v0.0.1’的标签信息)
+$ git show v0.0.1
+
+#4.6 补加某个版本上的标签(示例为：为之前的&apos;g9798dfg7a997&apos; 版本补加上tag)
+$ git tag -a v0.0.1 g9798dfg7a997
+
+#4.7 推送tag到远程仓库(git push origin [tagname],示例为：将tag&apos;v0.0.1&apos; 推送到远端仓库)
+$ git push origin v0.0.1
+
+#4.8 推送本地所有的tag到远端仓库
+$ git push origin --tags
+
+#4.9 覆盖之前的tag(示例为：覆盖原来的v1.0.0tag)
+$ git tag -f v1.0.0
+
+#4.10 删除指定tag(示例为：删除名为v1.0.0的tag)
+$ git tag -d v1.0.0
 </code></pre><hr>
 <h1 id="拓展：终端常用命令"><a href="#拓展：终端常用命令" class="headerlink" title="拓展：终端常用命令"></a>拓展：终端常用命令</h1><blockquote>
 <ul>
@@ -469,6 +499,11 @@ $ cd ..
 
 #1.7 回到根目录
 $ cd
+</code></pre><h2 id="2-ssh绑定命令"><a href="#2-ssh绑定命令" class="headerlink" title="2. ssh绑定命令"></a>2. ssh绑定命令</h2><pre><code>#2.1 创建ssh密钥对
+$ ssh-keygen -t rsa -C &quot;xxx@xxx.com&quot;
+
+#2.2 将生成的密钥对添加到系统
+$ ssh-add ~/.ssh/xxxx
 </code></pre>
       
     </div>
@@ -723,7 +758,7 @@ $ cd
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git-常用命令"><span class="nav-number">1.</span> <span class="nav-text">git 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础命令"><span class="nav-number">1.1.</span> <span class="nav-text">1. 基础命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分支操作命令"><span class="nav-number">1.2.</span> <span class="nav-text">2. 分支操作命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-版本操作命令"><span class="nav-number">1.3.</span> <span class="nav-text">3.版本操作命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拓展：终端常用命令"><span class="nav-number">2.</span> <span class="nav-text">拓展：终端常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-文件操作命令"><span class="nav-number">2.1.</span> <span class="nav-text">1. 文件操作命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git-常用命令"><span class="nav-number">1.</span> <span class="nav-text">git 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础命令"><span class="nav-number">1.1.</span> <span class="nav-text">1. 基础命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分支操作命令"><span class="nav-number">1.2.</span> <span class="nav-text">2. 分支操作命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-版本操作命令"><span class="nav-number">1.3.</span> <span class="nav-text">3.版本操作命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-tag操作命令"><span class="nav-number">1.4.</span> <span class="nav-text">4.tag操作命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拓展：终端常用命令"><span class="nav-number">2.</span> <span class="nav-text">拓展：终端常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-文件操作命令"><span class="nav-number">2.1.</span> <span class="nav-text">1. 文件操作命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ssh绑定命令"><span class="nav-number">2.2.</span> <span class="nav-text">2. ssh绑定命令</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -886,7 +921,7 @@ $ cd
       var disqus_config = function () {
         this.page.url = 'http://ghostlord.site/2017/11/22/2017-11-22_git_command/';
         this.page.identifier = '2017/11/22/2017-11-22_git_command/';
-        this.page.title = 'git常用命令(20180224更新)';
+        this.page.title = 'git常用命令(20180428更新)';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
