@@ -100,26 +100,31 @@
 
 
   
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="OC,runtime,obje_msgSend,SIGSEGV," />
 
 
-<meta name="description" content="这个博客建立了好几次，可是都没稳定下来，希望这次能一直写下去。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ghostlord&#39;s blog.">
-<meta property="og:url" content="http://ghostlord.site/archives/index.html">
+<meta name="description" content="频繁崩溃，崩溃类型是：SIGSEGV,由于忘记留’dSYM’文件，导致崩溃信息里面得到的信息很少(血的教训，发版一定要留’dSYM’文件!!),后来只能重新打了一个包，重现崩溃才找到bug，竟然是objc_msgSend()用错了，而且在这之前一直这么错着用！！！ objc_msgSend() 是OC runtime里面很重要的一个函数，用来发送消息，可以解决performSelector:方法最">
+<meta name="keywords" content="OC,runtime,obje_msgSend,SIGSEGV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="objc_msgSend 错误使用方法">
+<meta property="og:url" content="http://ghostlord.site/2018/06/25/2018-06-25_objc_msgSend/index.html">
 <meta property="og:site_name" content="ghostlord&#39;s blog.">
-<meta property="og:description" content="这个博客建立了好几次，可是都没稳定下来，希望这次能一直写下去。">
+<meta property="og:description" content="频繁崩溃，崩溃类型是：SIGSEGV,由于忘记留’dSYM’文件，导致崩溃信息里面得到的信息很少(血的教训，发版一定要留’dSYM’文件!!),后来只能重新打了一个包，重现崩溃才找到bug，竟然是objc_msgSend()用错了，而且在这之前一直这么错着用！！！ objc_msgSend() 是OC runtime里面很重要的一个函数，用来发送消息，可以解决performSelector:方法最">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-194336.png">
+<meta property="og:image" content="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-201700.png">
+<meta property="og:updated_time" content="2018-06-25T12:38:52.400Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ghostlord&#39;s blog.">
-<meta name="twitter:description" content="这个博客建立了好几次，可是都没稳定下来，希望这次能一直写下去。">
+<meta name="twitter:title" content="objc_msgSend 错误使用方法">
+<meta name="twitter:description" content="频繁崩溃，崩溃类型是：SIGSEGV,由于忘记留’dSYM’文件，导致崩溃信息里面得到的信息很少(血的教训，发版一定要留’dSYM’文件!!),后来只能重新打了一个包，重现崩溃才找到bug，竟然是objc_msgSend()用错了，而且在这之前一直这么错着用！！！ objc_msgSend() 是OC runtime里面很重要的一个函数，用来发送消息，可以解决performSelector:方法最">
+<meta name="twitter:image" content="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-194336.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://ghostlord.site/archives/"/>
+  <link rel="canonical" href="http://ghostlord.site/2018/06/25/2018-06-25_objc_msgSend/"/>
 
 
 
@@ -128,7 +133,7 @@
     sidebar: "",
   };
 </script>
-  <title>归档 | ghostlord's blog.</title>
+  <title>objc_msgSend 错误使用方法 | ghostlord's blog.</title>
   
 
 
@@ -185,7 +190,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,427 +262,192 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ghostlord.site/2018/06/25/2018-06-25_objc_msgSend/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ghostlord">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ghostlord's blog.">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">objc_msgSend 错误使用方法</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T17:37:00+08:00">2018-06-25</time>
+            
+
+            
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 13 篇日志。 继续努力。
-      </span>
-      
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/25/2018-06-25_objc_msgSend/" itemprop="url">
-              
-                <span itemprop="name">objc_msgSend 错误使用方法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-25T17:37:00+08:00"
-              content="2018-06-25" >
-          06-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/25/2018-06-25_Xcode_10_beta_Error/" itemprop="url">
-              
-                <span itemprop="name">Xcode 10 打开工程提示"Info.plist文件"错误的解决方法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-25T16:49:00+08:00"
-              content="2018-06-25" >
-          06-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/06/2018-06-06_weakContainer/" itemprop="url">
-              
-                <span itemprop="name">OC中的弱引用容器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-06T19:03:00+08:00"
-              content="2018-06-06" >
-          06-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/06/2018-06-06_moreDelegate/" itemprop="url">
-              
-                <span itemprop="name">OC 中多代理的实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-06T19:03:00+08:00"
-              content="2018-06-06" >
-          06-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/28/TODO/" itemprop="url">
-              
-                <span itemprop="name">博客的排期</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-28T13:03:00+08:00"
-              content="2018-02-28" >
-          02-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/14/2018-02-14_blog_iOS_NSValue/" itemprop="url">
-              
-                <span itemprop="name">对NSValue的探索</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-14T13:46:00+08:00"
-              content="2018-02-14" >
-          02-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/11/2018-02-11_blog_comment_counting_start/" itemprop="url">
-              
-                <span itemprop="name">本博客评论系统和统计功能现已添加</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-11T16:02:00+08:00"
-              content="2018-02-11" >
-          02-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/01/12/2018-01-12_mac_run_sh/" itemprop="url">
-              
-                <span itemprop="name">Mac下运行.sh脚本</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-01-12T19:11:00+08:00"
-              content="2018-01-12" >
-          01-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/25/2018-06-25_objc_msgSend/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/25/2018-06-25_objc_msgSend/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/11/22/2017-11-22_git_command/" itemprop="url">
-              
-                <span itemprop="name">git常用命令(20180428更新)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-22T19:20:00+08:00"
-              content="2017-11-22" >
-          11-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
+          
 
-        
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/03/2016-10-03_mac_terminal_beautify/" itemprop="url">
-              
-                <span itemprop="name">Mac 终端窗口美化</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-03T00:56:00+08:00"
-              content="2016-10-03" >
-          10-03
-        </time>
-      </div>
+        </div>
+      </header>
+    
 
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>频繁崩溃，崩溃类型是：SIGSEGV,由于忘记留’dSYM’文件，导致崩溃信息里面得到的信息很少(血的教训，发版一定要留’dSYM’文件!!),后来只能重新打了一个包，重现崩溃才找到bug，竟然是objc_msgSend()用错了，而且在这之前一直这么错着用！！！</p>
+<p>objc_msgSend() 是OC runtime里面很重要的一个函数，用来发送消息，可以解决performSelector:方法最多只能传递两个参数的问题，所以runtime刚入门的人就喜欢用这个函数，但是没有真正理解其用法，比如我。</p>
+<p>函数背后的原理和更深入的东西我就不说了，毕竟我也不会，只把函数的用法规则重新学习一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 正常方法：</span><br><span class="line">- (void)testMethod;</span><br><span class="line">// 使用objc_msgSend()</span><br><span class="line">objc_msgSend(self , @selector(testMethod));</span><br></pre></td></tr></table></figure></p>
+<p>但是以上写法是错误的，因为以上写法没有定义函数原型<br>正确的是以下写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((void(*) (id,SEL))objc_msgSend)(self, @selector(testMethod));</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-194336.png" alt="函数原型分解"><br>所以，这个函数是要定义函数的返回值和参数类型的，例如要给一个Person对象发送消息，返回值为NSString:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 正常方法</span><br><span class="line">-(NSString *)getNameWithPerson:(Person *)person;</span><br><span class="line">...</span><br><span class="line">Person *aPerson = [[Person alloc] init];</span><br><span class="line">NSString *name = [self getNameWithPerson:aPerson];</span><br><span class="line"></span><br><span class="line">// 使用objc_msgSend()</span><br><span class="line">NSString *name = ((NSString *(*)  (id , SEL , Person *))objc_msgSend)(self , @selector(getNameWithPerson:) , aPerson);</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-201700.png" alt="带参数带返回值"></p>
+<p>备注：如果不定义函数原型，debug模式也许不会崩溃，但是打成Release包或者AdHoc包就有可能崩溃，所以还是要按规范来使用这个函数</p>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OC/" rel="tag"># OC</a>
+          
+            <a href="/tags/runtime/" rel="tag"># runtime</a>
+          
+            <a href="/tags/obje-msgSend/" rel="tag"># obje_msgSend</a>
+          
+            <a href="/tags/SIGSEGV/" rel="tag"># SIGSEGV</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/25/2018-06-25_Xcode_10_beta_Error/" rel="next" title="Xcode 10 打开工程提示"Info.plist文件"错误的解决方法">
+                <i class="fa fa-chevron-left"></i> Xcode 10 打开工程提示"Info.plist文件"错误的解决方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -981,6 +751,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
 
   
 
@@ -995,6 +769,23 @@
     <script id="dsq-count-scr" src="https://ghostlord.disqus.com/count.js" async></script>
   
 
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://ghostlord.site/2018/06/25/2018-06-25_objc_msgSend/';
+        this.page.identifier = '2018/06/25/2018-06-25_objc_msgSend/';
+        this.page.title = 'objc_msgSend 错误使用方法';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ghostlord.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
   
 
 
