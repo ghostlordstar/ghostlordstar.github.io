@@ -106,16 +106,16 @@
 <meta name="description" content="前天发了一个版本，从bugly监控发现频繁崩溃，崩溃类型是：SIGSEGV,由于忘记留’dSYM’文件，导致崩溃信息里面得到的信息很少(血的教训，发版一定要留’dSYM’文件!!),后来只能重新打了一个包，重现崩溃才找到bug，竟然是objc_msgSend()用错了，而且在这之前一直这么错着用！！！ objc_msgSend() 是OC runtime里面很重要的一个函数，用来发送消息，可以解决">
 <meta name="keywords" content="OC,runtime,obje_msgSend,SIGSEGV">
 <meta property="og:type" content="article">
-<meta property="og:title" content="objc_msgSend 错误使用方法">
+<meta property="og:title" content="objc_msgSend() 函数正确的使用方法">
 <meta property="og:url" content="http://ghostlord.site/2018/06/25/2018-06-25_objc_msgSend/index.html">
 <meta property="og:site_name" content="ghostlord&#39;s blog.">
 <meta property="og:description" content="前天发了一个版本，从bugly监控发现频繁崩溃，崩溃类型是：SIGSEGV,由于忘记留’dSYM’文件，导致崩溃信息里面得到的信息很少(血的教训，发版一定要留’dSYM’文件!!),后来只能重新打了一个包，重现崩溃才找到bug，竟然是objc_msgSend()用错了，而且在这之前一直这么错着用！！！ objc_msgSend() 是OC runtime里面很重要的一个函数，用来发送消息，可以解决">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-194336.png">
 <meta property="og:image" content="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-201700.png">
-<meta property="og:updated_time" content="2018-06-25T12:44:45.310Z">
+<meta property="og:updated_time" content="2018-06-25T12:47:07.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="objc_msgSend 错误使用方法">
+<meta name="twitter:title" content="objc_msgSend() 函数正确的使用方法">
 <meta name="twitter:description" content="前天发了一个版本，从bugly监控发现频繁崩溃，崩溃类型是：SIGSEGV,由于忘记留’dSYM’文件，导致崩溃信息里面得到的信息很少(血的教训，发版一定要留’dSYM’文件!!),后来只能重新打了一个包，重现崩溃才找到bug，竟然是objc_msgSend()用错了，而且在这之前一直这么错着用！！！ objc_msgSend() 是OC runtime里面很重要的一个函数，用来发送消息，可以解决">
 <meta name="twitter:image" content="http://o8prfm9ji.bkt.clouddn.com/QQ20180625-194336.png">
 
@@ -133,7 +133,7 @@
     sidebar: "",
   };
 </script>
-  <title>objc_msgSend 错误使用方法 | ghostlord's blog.</title>
+  <title>objc_msgSend() 函数正确的使用方法 | ghostlord's blog.</title>
   
 
 
@@ -295,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">objc_msgSend 错误使用方法</h1>
+          <h1 class="post-title" itemprop="name headline">objc_msgSend() 函数正确的使用方法</h1>
         
 
         <div class="post-meta">
@@ -774,7 +774,7 @@
       var disqus_config = function () {
         this.page.url = 'http://ghostlord.site/2018/06/25/2018-06-25_objc_msgSend/';
         this.page.identifier = '2018/06/25/2018-06-25_objc_msgSend/';
-        this.page.title = 'objc_msgSend 错误使用方法';
+        this.page.title = 'objc_msgSend() 函数正确的使用方法';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
